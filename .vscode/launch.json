@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "name": "dev",
+            "request": "launch",
+            "args": [
+                "--flavor",
+                "dev"
+            ],
+            "type": "dart",
+            "program": "lib/main.dart"
+        },
+        {
+            "name": "prod",
+            "request": "launch",
+            "args": [
+                "--flavor",
+                "prod"
+            ],
+            "type": "dart",
+            "program": "lib/main.dart"
+        },
+    ]
+}
