@@ -1,7 +1,7 @@
 import 'package:olkon_test_work/core/architecture/data/converter/converter.dart';
 import 'package:olkon_test_work/core/architecture/domain/entity/failure.dart';
 import 'package:olkon_test_work/core/architecture/domain/entity/result.dart';
-import 'package:olkon_test_work/features/news/domain/entities/article.dart';
+import 'package:olkon_test_work/features/news/domain/entities/article_dto.dart';
 import 'package:olkon_test_work/features/news/domain/failures/legal_server_error_failure.dart';
 import 'package:olkon_test_work/features/news/domain/entities/news_response.dart';
 import 'package:olkon_test_work/typedefs/json_typedef.dart';
@@ -14,7 +14,7 @@ final class NewsConverter
       return ResultOk(
         NewsOkResponse(
             articles: (input['articles'] as List)
-                .map((e) => Article.fromJson(e))
+                .map((e) => ArticleDto.fromJson(e))
                 .toList(),
             totalResults: input['totalResults']),
       );

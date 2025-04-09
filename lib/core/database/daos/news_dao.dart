@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:olkon_test_work/core/database/app_database.dart';
-import 'package:olkon_test_work/features/news/domain/entities/article.dart';
+import 'package:olkon_test_work/features/news/domain/entities/article_dto.dart';
+import 'package:olkon_test_work/features/news/domain/entities/article_entity.dart';
 
 part 'news_dao.g.dart';
 
@@ -10,7 +11,7 @@ class NewsDao extends DatabaseAccessor<AppDatabase> with _$NewsDaoMixin {
   // of this object.
   NewsDao(super.attachedDatabase);
 
-  Future<void> writeNews(Set<Article> articles) async {
+  Future<void> writeNews(Set<ArticleDto> articles) async {
     await batch((batch) {
       // functions in a batch don't have to be awaited - just
       // await the whole batch afterwards.
@@ -35,10 +36,11 @@ class NewsDao extends DatabaseAccessor<AppDatabase> with _$NewsDaoMixin {
     delete(newsTable);
   }
 
-  Stream<List<Article>> getDbArticlesStream() {
+  Stream<List<ArticleEntity>> getDbArticlesStream() {
     return select(newsTable).watch().map((event) => event
         .map(
-          (e) => Article(
+          (e) => ArticleEntity(
+              id: e.id,
               author: e.author ?? '',
               title: e.title ?? '',
               description: e.description ?? '',

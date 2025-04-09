@@ -1,20 +1,20 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:olkon_test_work/typedefs/json_typedef.dart';
 
-part 'article.freezed.dart';
-part 'article.g.dart';
+part 'article_dto.freezed.dart';
+part 'article_dto.g.dart';
 
 @freezed
-class Article with _$Article {
-  const factory Article({
+class ArticleDto with _$ArticleDto {
+  const factory ArticleDto({
     required String? author,
     required String? title,
     required String? description,
     required String? urlToImage,
-    required DateTime? publishedAt,
+    required DateTime publishedAt,
     required String? content,
-  }) = _Article;
+  }) = _ArticleDto;
 
-  factory Article.fromJson(Json json) =>
-      _$ArticleFromJson(json);
+  factory ArticleDto.fromJson(Json json) =>
+      _$ArticleDtoFromJson(json);
 }

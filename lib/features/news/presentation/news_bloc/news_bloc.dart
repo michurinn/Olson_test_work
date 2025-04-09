@@ -2,7 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:olkon_test_work/core/architecture/domain/entity/failure.dart';
 import 'package:olkon_test_work/core/architecture/domain/entity/result.dart';
 import 'package:olkon_test_work/core/database/daos/news_dao.dart';
-import 'package:olkon_test_work/features/news/domain/entities/article.dart';
+import 'package:olkon_test_work/features/news/domain/entities/article_dto.dart';
+import 'package:olkon_test_work/features/news/domain/entities/article_entity.dart';
 import 'package:olkon_test_work/features/news/domain/entities/news_response.dart';
 import 'package:olkon_test_work/features/news/domain/repositories/i_news_repository.dart';
 

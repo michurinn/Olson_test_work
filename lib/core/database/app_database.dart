@@ -25,13 +25,13 @@ class NewsTable extends Table {
 }
 
 class CommentsTable extends Table {
-  IntColumn get id => integer()();
+  IntColumn get id => integer().autoIncrement()();
   DateTimeColumn get date => dateTime()();
-  TextColumn get photoId => text().nullable()();
-  BoolColumn get unread => boolean().nullable()();
+  TextColumn get username => text().nullable()();
+  IntColumn get articleId => integer()();
 
-  @override
-  Set<Column<Object>>? get primaryKey => {id};
+  // @override
+  // Set<Column<Object>>? get primaryKey => {id, articleId};
 }
 
 @DriftDatabase(tables: [NewsTable, CommentsTable], daos: [NewsDao, CommentsDao])

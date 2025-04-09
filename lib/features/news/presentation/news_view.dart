@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:olkon_test_work/features/news/presentation/bloc/news_bloc.dart';
+import 'package:olkon_test_work/features/news/domain/entities/comment_dto.dart';
+import 'package:olkon_test_work/features/news/presentation/cubit/comments_cubit.dart';
+import 'package:olkon_test_work/features/news/presentation/news_bloc/news_bloc.dart';
+import 'package:olkon_test_work/features/news/presentation/widgets/article_widget.dart';
 
 class NewsView extends StatelessWidget {
   const NewsView({super.key});
@@ -30,12 +33,16 @@ class NewsView extends StatelessWidget {
                 constraints: BoxConstraints.loose(
                   MediaQuery.sizeOf(context),
                 ),
-                child: ListView.builder(
-                  itemCount: news.length,
-                  itemBuilder: (context, index) => Card(
-                    child: Text(
-                      news[index].content ?? news[index].hashCode.toString(),
-                    ),
+                child: BlocBuilder<CommentsCubit, CommentsState>(
+                  builder: (context, cubitState) => ListView.builder(
+                    itemCount: news.length,
+                    itemBuilder: (context, index) {
+                      return ArticleWidget(
+                          article: news[index],
+                          commentsStream: context
+                              .watch<CommentsCubit>()
+                              .initCommentsStream(news[index].id));
+                    },
                   ),
                 ),
               ),
