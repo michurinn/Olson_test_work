@@ -5,7 +5,7 @@ import 'package:olkon_test_work/features/news/domain/entities/article_entity.dar
 
 part 'news_dao.g.dart';
 
-@DriftAccessor(tables: [NewsTable])
+@DriftAccessor(tables: [NewsTable, CommentsTable])
 class NewsDao extends DatabaseAccessor<AppDatabase> with _$NewsDaoMixin {
   // this constructor is required so that the main database can create an instance
   // of this object.
@@ -33,7 +33,20 @@ class NewsDao extends DatabaseAccessor<AppDatabase> with _$NewsDaoMixin {
 
   /// TODO(me): use for debugging
   Future<void> deleteAllNews() async {
-    delete(newsTable);
+    delete(newsTable).go();
+    delete(commentsTable).go();
+  }
+
+  Future<void> deleteArticle(ArticleEntity article) async {
+    delete(newsTable).where(
+      (tbl) => tbl.id.equals(article.id),
+    );
+    await batch((batch) {
+      batch.deleteWhere(
+        commentsTable,
+        (tbl) => tbl.articleId.equals(article.id),
+      );
+    });
   }
 
   Stream<List<ArticleEntity>> getDbArticlesStream() {
@@ -49,5 +62,20 @@ class NewsDao extends DatabaseAccessor<AppDatabase> with _$NewsDaoMixin {
               content: e.content ?? ''),
         )
         .toList());
+  }
+
+  Future<List<ArticleEntity>> getDbArticles() async {
+    return (await select(newsTable).get())
+        .map(
+          (e) => ArticleEntity(
+              id: e.id,
+              author: e.author ?? '',
+              title: e.title ?? '',
+              description: e.description ?? '',
+              urlToImage: e.urlToImage ?? '',
+              publishedAt: e.publishedAt ?? DateTime.now(),
+              content: e.content ?? ''),
+        )
+        .toList();
   }
 }

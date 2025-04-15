@@ -28,6 +28,7 @@ class CommentsTable extends Table {
   IntColumn get id => integer().autoIncrement()();
   DateTimeColumn get date => dateTime()();
   TextColumn get username => text().nullable()();
+  TextColumn get bodyText => text()();
   IntColumn get articleId => integer()();
 
   // @override

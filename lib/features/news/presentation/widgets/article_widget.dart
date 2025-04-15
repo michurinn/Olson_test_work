@@ -1,52 +1,72 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:olkon_test_work/extensions/string_hardcoded.dart';
+import 'package:olkon_test_work/extensions/theme_extensions/build_context_theme_color_extensions.dart';
+import 'package:olkon_test_work/extensions/theme_extensions/build_context_theme_text_style_extension.dart';
 import 'package:olkon_test_work/features/news/domain/entities/article_entity.dart';
-import 'package:olkon_test_work/features/news/domain/entities/comment.dart';
-import 'package:olkon_test_work/features/news/domain/entities/comment_dto.dart';
-import 'package:olkon_test_work/features/news/presentation/cubit/comments_cubit.dart';
 
-class ArticleWidget extends StatefulWidget {
-  const ArticleWidget(
-      {super.key, required this.article, required this.commentsStream});
+class ArticleWidget extends StatelessWidget {
+  const ArticleWidget({super.key, required this.article, this.commentsCount});
   final ArticleEntity article;
-  final Stream<List<CommentEntity>> commentsStream;
-  @override
-  State<ArticleWidget> createState() => _ArticleWidgetState();
-}
-
-class _ArticleWidgetState extends State<ArticleWidget> {
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
+  final int? commentsCount;
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onDoubleTap: () => context.read<CommentsCubit>().addComment(
-            CommentDto(
-              articleId: widget.article.id,
-              date: DateTime.now(),
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        color: context.color?.supportLightViolent.withOpacity(.6),
+        border: context.color?.supportLazar != null
+            ? Border.all(color: context.color!.socialTg)
+            : null,
+        // image: DecorationImage(
+        //   fit: BoxFit.cover,
+        //   alignment: Alignment.topCenter,
+        //   image: CachedNetworkImageProvider(widget.article.urlToImage ?? ''),
+        // ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SizedBox(
+          height: 100,
+          child: Stack(fit: StackFit.loose, children: [
+            Positioned(
+              top: 0,
+              child: Text(
+                article.author?.isNotEmpty == true
+                    ? article.author!
+                    : 'Unknown source'.hardcoded,
+                overflow: TextOverflow.fade,
+                style: context.themeTextStyle.title5,
+              ),
             ),
-          ),
-      child: Container(
-        height: 100,
-        child: Stack(children: [
-          Positioned(
-            top: 20,
-            child: Text(
-              widget.article.content ?? widget.article.hashCode.toString(),
+            Positioned(
+              top: 20,
+              left: 0,
+              right: 0,
+              bottom: 20,
+              child: Text(
+                maxLines: 3,
+                style: context.themeTextStyle.text2,
+                article.content?.isNotEmpty == true
+                    ? article.content!
+                    : article.title?.isNotEmpty == true
+                        ? article.title!
+                        : article.description?.isNotEmpty == true
+                            ? article.description!
+                            : '',
+                overflow: TextOverflow.fade,
+              ),
             ),
-          ),
-          StreamBuilder(
-            stream: widget.commentsStream,
-            builder: (context, snapshot) => snapshot.hasData
-                ? Text(
-                    (snapshot.data?.length ?? 0).toString(),
-                  )
-                : Text('No cmnt'),
-          ),
-        ]),
+            if (commentsCount != null)
+              Positioned(
+                right: 20,
+                bottom: 00,
+                child: Text(
+                  commentsCount.toString() + ' comments'.hardcoded,
+                  style: context.themeTextStyle.text4,
+                ),
+              ),
+          ]),
+        ),
       ),
     );
   }

@@ -9,3 +9,9 @@ final class LoadFromDbNewsEvent extends NewsEvent {
 
   LoadFromDbNewsEvent({required this.news});
 }
+
+final class FilterDbNewsEvent extends NewsEvent {
+  final FilterClosure<String> fliterClosure;
+
+  FilterDbNewsEvent({required this.fliterClosure});
+}

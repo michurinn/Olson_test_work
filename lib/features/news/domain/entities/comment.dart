@@ -9,5 +9,6 @@ class CommentEntity with _$CommentEntity {
     required int articleId,
     required DateTime date,
     String? userName,
+    required String text,
   }) = _CommentEntity;
 }

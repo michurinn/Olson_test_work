@@ -17,6 +17,7 @@ class CommentsDao extends DatabaseAccessor<AppDatabase>
         date: comment.date,
         articleId: comment.articleId,
         username: Value.absentIfNull(comment.userName),
+        bodyText: comment.text,
       ),
     );
   }
@@ -28,8 +29,23 @@ class CommentsDao extends DatabaseAccessor<AppDatabase>
     );
   }
 
-  Stream<List<CommentEntity>> getDbArticlesStream(int articleId) {
-    return (select(commentsTable)
+  Stream<List<CommentEntity>> getDbArticlesStream(int articleId) async* {
+    yield (await (select(commentsTable)
+              ..where(
+                (tbl) => tbl.articleId.equals(articleId),
+              ))
+            .get())
+        .map(
+          (e) => CommentEntity(
+            id: e.id,
+            date: e.date,
+            articleId: e.articleId,
+            userName: e.username,
+            text: e.bodyText,
+          ),
+        )
+        .toList();
+    yield* (select(commentsTable)
           ..where(
             (tbl) => tbl.articleId.equals(articleId),
           ))
@@ -42,9 +58,10 @@ class CommentsDao extends DatabaseAccessor<AppDatabase>
                   date: e.date,
                   articleId: e.articleId,
                   userName: e.username,
+                  text: e.bodyText,
                 ),
               )
               .toList(),
-        );
+        ).asBroadcastStream();
   }
 }

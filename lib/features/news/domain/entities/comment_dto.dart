@@ -8,5 +8,6 @@ class CommentDto with _$CommentDto {
     required int articleId,
     required DateTime date,
     String? userName,
+    required String text,
   }) = _CommentDto;
 }
