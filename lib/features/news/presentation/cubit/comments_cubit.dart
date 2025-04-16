@@ -8,6 +8,7 @@ import 'package:olkon_test_work/features/news/domain/entities/comment_dto.dart';
 part 'comments_state.dart';
 part 'comments_cubit.freezed.dart';
 
+@Deprecated('These states are not really used. Replace the logic without Cubit')
 class CommentsCubit extends Cubit<CommentsState> {
   CommentsCubit(this.commentsDao) : super(const CommentsState.initial());
 

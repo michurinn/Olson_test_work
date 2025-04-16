@@ -4,6 +4,9 @@ import 'package:olkon_test_work/extensions/theme_extensions/build_context_theme_
 import 'package:olkon_test_work/extensions/theme_extensions/build_context_theme_text_style_extension.dart';
 import 'package:olkon_test_work/features/news/domain/entities/article_entity.dart';
 
+/// {@template article_widget.class}
+/// Widget for displaying an article
+/// {@endtemplate}
 class ArticleWidget extends StatelessWidget {
   const ArticleWidget({super.key, required this.article, this.commentsCount});
   final ArticleEntity article;

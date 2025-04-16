@@ -1,7 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user.freezed.dart';
-
+/// {@template User.class}
+/// Now kept only Username
+/// {@endtemplate}
 @freezed
 abstract class User with _$User {
   const User._();

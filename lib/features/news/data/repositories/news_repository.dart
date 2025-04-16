@@ -3,11 +3,15 @@ import 'package:olkon_test_work/architecture/domain/entity/request_operation.dar
 import 'package:olkon_test_work/core/architecture/data/converter/converter.dart';
 import 'package:olkon_test_work/core/architecture/domain/entity/failure.dart';
 import 'package:olkon_test_work/core/architecture/domain/entity/result.dart';
+import 'package:olkon_test_work/core/failures/convert_failure.dart';
 import 'package:olkon_test_work/features/news/domain/entities/news_response.dart';
 import 'package:olkon_test_work/features/news/domain/repositories/i_news_repository.dart';
 import 'package:olkon_test_work/typedefs/json_typedef.dart';
 import 'package:olkon_test_work/urls/urls.dart';
 
+/// {@template NewsRepository.class}
+/// Repository for getting a list of news
+/// {@endtemplate}
 final class NewsRepository implements INewsRepository {
   final Dio dio;
   final Converter<Result<NewsOkResponse, Failure>, Json> responseConverter;
@@ -32,8 +36,11 @@ final class NewsRepository implements INewsRepository {
       final data = responseConverter.convert(response.data as Json);
       return switch (data) {
         ResultOk(:final data) => ResultOk(data),
-        ResultFailed<NewsOkResponse, Failure<Object?>>() =>
-          throw UnimplementedError(),
+        ResultFailed<NewsOkResponse, Failure<Object?>>(:final failure) =>
+          ResultFailed(
+            ConvertFailure(
+                original: failure, message: 'Converting failure', trace: null),
+          )
       };
     } on DioException catch (e) {
       return ResultFailed(

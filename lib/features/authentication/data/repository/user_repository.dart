@@ -6,6 +6,9 @@ import 'package:olkon_test_work/features/authentication/data/model/user.dart';
 import 'package:olkon_test_work/features/authentication/domain/repository/i_user_repository.dart';
 import 'package:olkon_test_work/persistence/storage/user_storage/i_user_storage.dart';
 
+/// {@template UserRepository.class}
+/// A repository for authenticating and retrieving saved user data 
+/// {@endtemplate}
 class UserRepository implements IUserRepository {
   final IUserStorage userStorage;
   final Dio dio;

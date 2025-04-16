@@ -14,6 +14,9 @@ import 'package:olkon_test_work/features/news/domain/entities/article_entity.dar
 import 'package:olkon_test_work/features/news/domain/entities/comment_dto.dart';
 import 'package:olkon_test_work/features/news/presentation/cubit/comments_cubit.dart';
 
+/// {@template CommentsView.class}
+/// Comments Screen
+/// {@endtemplate}
 class CommentsView extends StatefulWidget {
   const CommentsView({super.key, required this.article});
   final ArticleEntity article;

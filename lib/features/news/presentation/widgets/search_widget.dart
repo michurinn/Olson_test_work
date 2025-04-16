@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:olkon_test_work/extensions/string_hardcoded.dart';
 import 'package:olkon_test_work/features/authentication/presentation/presentation/widgets/text_field.dart';
- 
+
+/// {@template search_widget.class}
+/// Widget for filtering news by article
+/// {@endtemplate}
 class SearchWidget extends StatelessWidget {
   const SearchWidget({super.key, this.onChanged});
   final ValueChanged<String>? onChanged;

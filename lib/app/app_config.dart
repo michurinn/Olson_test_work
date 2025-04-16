@@ -6,10 +6,10 @@ import 'package:olkon_test_work/persistence/storage/tokens_storage/auth_token_pa
 /// Application configuration.
 /// {@endtemplate}
 class AppConfig {
-  /// Server url.
+  /// Базовый url.
   final String url;
 
-  /// AppDatabase
+  ///  <L
   final AppDatabase database;
 
   final TokenStorage<AuthTokenPair> tokenStorage;

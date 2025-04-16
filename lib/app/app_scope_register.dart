@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fresh_dio/fresh_dio.dart';
 import 'package:olkon_test_work/app/app_config.dart';
@@ -33,26 +32,12 @@ final class AppScopeRegister {
     );
 
     const dioConfigurator = AppDioConfigurator();
-
-    /// Check the auth state at every run
-
-    final ValueNotifier<bool> loggedNotifier = ValueNotifier(
-        (await appConfig.tokenStorage.read()) != null ? true : false);
-
-    /// TODO(me): remake it
-    loggedNotifier.addListener(
-      () async {
-        if (!loggedNotifier.value) {
-          await appConfig.tokenStorage.delete();
-          await db.newsDao.deleteAllNews();
-        }
-      },
-    );
+    
     final dio = dioConfigurator.create(
       tokenStorage: appConfig.tokenStorage,
       url: appConfig.url,
       logout: () async {
-        loggedNotifier.value = false;
+         /// TODO(me): Unimplemented
       },
     );
 

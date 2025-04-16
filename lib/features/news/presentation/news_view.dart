@@ -9,9 +9,10 @@ import 'package:olkon_test_work/features/news/presentation/news_bloc/news_bloc.d
 import 'package:olkon_test_work/features/news/presentation/widgets/article_widget.dart';
 import 'package:olkon_test_work/features/news/presentation/widgets/search_widget.dart';
 import 'package:olkon_test_work/features/theme/di/theme_mode_scope.dart';
-import 'package:olkon_test_work/features/theme/providers/theme_mode_provider.dart';
 import 'package:olkon_test_work/navigation/pages.dart';
-
+/// {@template news_view.class}
+/// Login Screen
+/// {@endtemplate}
 class NewsView extends StatelessWidget {
   const NewsView({super.key});
 
@@ -75,41 +76,39 @@ class NewsView extends StatelessWidget {
                   constraints: BoxConstraints.loose(
                     MediaQuery.sizeOf(context),
                   ),
-                  child: BlocBuilder<CommentsCubit, CommentsState>(
-                    builder: (context, cubitState) => Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ListView.separated(
-                        separatorBuilder: (context, index) => const SizedBox(
-                          height: 8,
-                        ),
-                        itemCount: news.length,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () => context.octopus.setState(
-                              (state) => state
-                                ..add(
-                                  Routes.articleDetails.node(
-                                    arguments: {
-                                      'article': jsonEncode(
-                                        news[index].toJson(),
-                                      ),
-                                    },
-                                  ),
-                                ),
-                            ),
-                            child: StreamBuilder(
-                              stream: context
-                                  .watch<CommentsCubit>()
-                                  .initCommentsStream(news[index].id),
-                              builder: (context, snapshot) => ArticleWidget(
-                                  article: news[index],
-                                  commentsCount: snapshot.hasData
-                                      ? snapshot.data?.length
-                                      : null),
-                            ),
-                          );
-                        },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView.separated(
+                      separatorBuilder: (context, index) => const SizedBox(
+                        height: 8,
                       ),
+                      itemCount: news.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () => context.octopus.setState(
+                            (state) => state
+                              ..add(
+                                Routes.articleDetails.node(
+                                  arguments: {
+                                    'article': jsonEncode(
+                                      news[index].toJson(),
+                                    ),
+                                  },
+                                ),
+                              ),
+                          ),
+                          child: StreamBuilder(
+                            stream: context
+                                .watch<CommentsCubit>()
+                                .initCommentsStream(news[index].id),
+                            builder: (context, snapshot) => ArticleWidget(
+                                article: news[index],
+                                commentsCount: snapshot.hasData
+                                    ? snapshot.data?.length
+                                    : null),
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ),

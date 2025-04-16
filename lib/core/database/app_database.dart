@@ -30,9 +30,6 @@ class CommentsTable extends Table {
   TextColumn get username => text().nullable()();
   TextColumn get bodyText => text()();
   IntColumn get articleId => integer()();
-
-  // @override
-  // Set<Column<Object>>? get primaryKey => {id, articleId};
 }
 
 @DriftDatabase(tables: [NewsTable, CommentsTable], daos: [NewsDao, CommentsDao])

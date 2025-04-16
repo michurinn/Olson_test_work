@@ -6,6 +6,10 @@ import 'package:olkon_test_work/features/news/domain/entities/comment_dto.dart';
 part 'comments_dao.g.dart';
 
 @DriftAccessor(tables: [CommentsTable])
+
+/// {@template CommentsDao.class}
+/// DAO for Creating, Reading, Deleting comments
+/// {@endtemplate}
 class CommentsDao extends DatabaseAccessor<AppDatabase>
     with _$CommentsDaoMixin {
   CommentsDao(super.attachedDatabase);
@@ -14,21 +18,20 @@ class CommentsDao extends DatabaseAccessor<AppDatabase>
     /// TODO(me): make sure that datetime is writing in UTC or same way to unificate it
     into(commentsTable).insert(
       CommentsTableCompanion.insert(
-        date: comment.date,
+        date: comment.date.toUtc(),
         articleId: comment.articleId,
         username: Value.absentIfNull(comment.userName),
         bodyText: comment.text,
       ),
     );
   }
-
-  /// TODO(me): use for debugging
+  /// Delete all comments related with the Article
   Future<void> deleteCommentsByArticleId(int articleId) async {
     delete(commentsTable).where(
       (tbl) => tbl.articleId.equals(articleId),
     );
   }
-
+  /// Stream updates of comments to listen to in StreamBuilder
   Stream<List<CommentEntity>> getDbArticlesStream(int articleId) async* {
     yield (await (select(commentsTable)
               ..where(
@@ -62,6 +65,7 @@ class CommentsDao extends DatabaseAccessor<AppDatabase>
                 ),
               )
               .toList(),
-        ).asBroadcastStream();
+        )
+        .asBroadcastStream();
   }
 }

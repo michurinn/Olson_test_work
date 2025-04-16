@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:olkon_test_work/extensions/theme_extensions/build_context_theme_color_extensions.dart';
 import 'package:olkon_test_work/extensions/theme_extensions/build_context_theme_text_style_extension.dart';
 
+/// {@template OlkonTextField.class}
+/// Common text filed widget
+/// {@endtemplate}
 class OlkonTextField extends StatefulWidget {
   const OlkonTextField(
       {super.key,
@@ -23,6 +26,7 @@ class OlkonTextField extends StatefulWidget {
   final String? hintText;
   final bool? obscureText;
   final bool? showErrorLabel;
+  /// Called then the value of the TextFiledController has been changed
   final ValueChanged<String>? onChanged;
 
   ///final TextEditingController controller;

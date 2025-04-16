@@ -3,15 +3,11 @@ import 'package:octopus/octopus.dart';
 import 'package:olkon_test_work/constants/app_constants.dart';
 import 'package:olkon_test_work/extensions/string_hardcoded.dart';
 
-/// Shows a dialog that allows the user to enter a new comment description.
-///
-/// [context] The BuildContext used to display the dialog.
-/// [initialText] An optional initial text to pre-fill the dialog's text field.
-///
-/// Returns the text entered by the user, or `null` if the dialog was canceled.
+/// {@template showDescriptionDialog}
+/// Shows a dialog for adding a comment. The 'getCommentText' callback will be executed after clicking on Add
+/// {@endtemplate}
 Future<String?> showDescriptionDialog(
     BuildContext context, ValueChanged<String> getCommentText) async {
-  ///final ValueChanged getCommentText = getCommentText;
   var storedText = '';
   String onChanged(String text) => storedText = text;
   final result = await context.octopus.showDialog<String?>(

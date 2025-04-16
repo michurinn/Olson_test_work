@@ -5,7 +5,9 @@ import 'package:olkon_test_work/features/news/domain/entities/article_dto.dart';
 import 'package:olkon_test_work/features/news/domain/failures/legal_server_error_failure.dart';
 import 'package:olkon_test_work/features/news/domain/entities/news_response.dart';
 import 'package:olkon_test_work/typedefs/json_typedef.dart';
-
+/// {@template news_converter.class}
+/// Converter of the News API response  
+/// {@endtemplate}
 final class NewsConverter
     extends Converter<Result<NewsOkResponse, Failure>, Json> {
   @override

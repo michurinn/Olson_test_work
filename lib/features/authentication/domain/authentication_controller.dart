@@ -5,6 +5,9 @@ import 'package:olkon_test_work/features/authentication/data/model/sign_in_data.
 import 'package:olkon_test_work/features/authentication/data/model/user.dart';
 import 'package:olkon_test_work/features/authentication/domain/repository/i_user_repository.dart';
 
+/// {@template AuthenticationController.class}
+/// Authentication controller for global state management via Inherited Widget
+/// {@endtemplate}
 class AuthenticationController with ChangeNotifier {
   final IUserRepository _userRepository;
 

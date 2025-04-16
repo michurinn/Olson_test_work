@@ -6,15 +6,15 @@ import 'package:olkon_test_work/features/news/domain/entities/article_entity.dar
 part 'news_dao.g.dart';
 
 @DriftAccessor(tables: [NewsTable, CommentsTable])
+/// {@template NewsDao.class}
+/// DAO for Creating, Reading, Deleting articles
+/// {@endtemplate}
 class NewsDao extends DatabaseAccessor<AppDatabase> with _$NewsDaoMixin {
-  // this constructor is required so that the main database can create an instance
-  // of this object.
+  
   NewsDao(super.attachedDatabase);
-
+  /// Writes the new articles
   Future<void> writeNews(Set<ArticleDto> articles) async {
-    await batch((batch) {
-      // functions in a batch don't have to be awaited - just
-      // await the whole batch afterwards.
+    await batch((batch) { 
       batch.insertAll(
         newsTable,
         articles.map((e) => NewsTableCompanion(
@@ -58,7 +58,7 @@ class NewsDao extends DatabaseAccessor<AppDatabase> with _$NewsDaoMixin {
               title: e.title ?? '',
               description: e.description ?? '',
               urlToImage: e.urlToImage ?? '',
-              publishedAt: e.publishedAt ?? DateTime.now(),
+              publishedAt: e.publishedAt ?? DateTime.fromMicrosecondsSinceEpoch(0),
               content: e.content ?? ''),
         )
         .toList());

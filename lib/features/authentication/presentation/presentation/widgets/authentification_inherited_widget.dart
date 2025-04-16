@@ -5,6 +5,9 @@ import 'package:olkon_test_work/features/authentication/data/model/sign_in_data.
 import 'package:olkon_test_work/features/authentication/data/model/user.dart';
 import 'package:olkon_test_work/features/authentication/domain/authentication_controller.dart';
 
+/// {@template AuthenticationScope.class}
+/// Changes the global state when the Authenticaion Controller state is changed
+/// {@endtemplate}
 class AuthenticationScope extends StatefulWidget {
   const AuthenticationScope({super.key, required this.child});
   final Widget child;

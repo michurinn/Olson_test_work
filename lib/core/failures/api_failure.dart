@@ -24,10 +24,6 @@ base class ApiFailure extends Failure<DioException> {
     this.responseBodyCode,
     this.message,
   });
-
-  // TODO(anyone): Add getters for special status codes.
-  /// Sample: ExpiredToken - refresh token has expired
-  /// bool get isExpiredRefreshToken => statusCode == 102
 }
 
 /// {@template timeout_failure.class}

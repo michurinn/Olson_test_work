@@ -22,6 +22,16 @@ dependencies:
   flutter_bloc: ^9.1.0
   rxdart: ^0.28.0
   json_serializable: ^6.8.0
+  fresh_dio: ^0.4.3
+  flutter_secure_storage: 9.2.4
+  shared_preferences: ^2.3.3
+  octopus: 0.0.8
+  google_fonts: 6.2.1
+  cached_network_image: ^3.4.1
+  equatable: ^2.0.7
+  intl: ^0.20.2
+  nested: ^1.0.0
+  provider: ^6.1.4
   
 
 dev_dependencies:

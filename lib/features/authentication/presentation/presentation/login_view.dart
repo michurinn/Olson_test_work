@@ -6,7 +6,9 @@ import 'package:olkon_test_work/features/authentication/data/model/sign_in_data.
 import 'package:olkon_test_work/features/authentication/presentation/presentation/widgets/text_field.dart';
 import 'package:olkon_test_work/navigation/pages.dart';
 import 'package:olkon_test_work/persistence/storage/tokens_storage/auth_token_pair.dart';
-
+/// {@template LoginView.class}
+/// Login Screen
+/// {@endtemplate}
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
 

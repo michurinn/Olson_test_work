@@ -4,6 +4,9 @@ part 'article_entity.freezed.dart';
 
 part 'article_entity.g.dart';
 
+/// {@template article_entity.class}
+/// The essence of the news. Contains the id of the record in the database 
+/// {@endtemplate}
 @freezed
 class ArticleEntity with _$ArticleEntity {
   const factory ArticleEntity({
